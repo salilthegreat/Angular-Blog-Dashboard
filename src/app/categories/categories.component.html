@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-secondary-theme p-5 shaddow-effect">
+            <h3 class="text-center text-theme-primary">{{categryType}} Categories</h3>
+            <p class="text-center mb-5">You can {{categryType | lowercase}}  categories from here</p>
+            <form #categoryForm = 'ngForm' class="form-inline text-centerr" (ngSubmit)="onSubmit(categoryForm)">
+                <div class=" col-md-10">
+                    <input type="text" name="category" id="category" placeholder="Add New Categories" class="form-control shaddow-effect" ngModel required #category = 'ngModel'
+                    [(ngModel)]="inputData"
+                     [ngClass]="{
+                        'is-invalid': category.touched && category.invalid
+                    }">
+                <div class="alert alert-danger " *ngIf="category.touched && category.invalid"> category Field is required</div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" [disabled]="!categoryForm.valid" class="btn btn-block btn-info mb-2 btn-theme">{{categryType}} Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-5 mb-5">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card shaddow-effect">
+                <div class="card-body">
+                    <table class=" table row-border hover text-center">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Category</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of displayCategory | async; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{category.category}}</td>
+                                <td>
+                                    <button class="ml-3 btn btn-sm btn-warning" (click)="editData(category.id,category.category)">Edit</button>
+                                    <button class="ml-3 btn btn-sm btn-danger" (click)="deleteData(category.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+

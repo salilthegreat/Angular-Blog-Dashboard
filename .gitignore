@@ -41,3 +41,9 @@ testem.log
 .DS_Store
 Thumbs.db
 .vscode
+
+/src/environments
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
