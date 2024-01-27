@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
 import { Auth,signInWithEmailAndPassword, authState, signOut} from '@angular/fire/auth';
 
@@ -15,7 +15,19 @@ export class AuthService {
   isLoggedIn:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   isLoggedInGuard:boolean = false
 
-  constructor(private auth:Auth, private toastr:ToastrService,private router:Router) { }
+  constructor(private auth:Auth, private toastr:ToastrService,private router:Router, private zone:NgZone) {
+    authState(auth).subscribe((user)=>{
+      if(user){
+        this.loadUser();
+        this.isLoggedIn.next(true);
+        this.isLoggedInGuard = true;
+        this.zone.run(()=>this.router.navigate(['/dashboard']))
+      }else{
+        this.isLoggedIn.next(false);
+        this.isLoggedInGuard = false
+      }
+    })
+   }
 
   login(email:string,password:string){
     signInWithEmailAndPassword(this.auth,email,password)
@@ -24,7 +36,7 @@ export class AuthService {
       this.loadUser()
       this.isLoggedIn.next(true)
       this.isLoggedInGuard = true
-      this.router.navigate(["/"])
+      this.router.navigate(["/dashboard"])
     })
     .catch((err)=>{
       this.toastr.warning(err)
@@ -33,7 +45,6 @@ export class AuthService {
 
   loadUser(){
     authState(this.auth).subscribe((val)=>{
-      // console.log(val?.email);
       localStorage.setItem("user",JSON.stringify(val))  
     })
   }
@@ -44,7 +55,7 @@ export class AuthService {
       localStorage.removeItem('user')
       this.isLoggedIn.next(false)
       this.isLoggedInGuard = false
-      this.router.navigate(['/login'])
+      this.router.navigate(['/'])
     })
   }
 

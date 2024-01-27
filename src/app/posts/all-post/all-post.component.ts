@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../models/post';
+import { MaxLengthPipe } from '../../pipes/max-length.pipe';
 @Component({
   selector: 'app-all-post',
   standalone: true,
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink,CommonModule,MaxLengthPipe],
   templateUrl: './all-post.component.html',
   styleUrl: './all-post.component.css'
 })

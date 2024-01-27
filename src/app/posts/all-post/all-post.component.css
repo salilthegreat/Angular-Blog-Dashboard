@@ -1,0 +1,47 @@
+table td img{
+    max-height: 300px;
+}
+
+table td button{
+    margin-bottom: 5px;
+}
+
+table tr:nth-child(even){
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+
+@media(max-width:540px){
+    table{
+        width: 100%;
+    }
+table thead{
+    display: none;
+}
+
+table tr{
+    display: block;
+}
+table th, table td{
+    padding: 0.5rem;
+}
+
+table td , table td img{
+    text-align: right;
+    display: block;
+    font-size: 1rem;
+}
+
+table td::before{
+    content: attr(data-title);
+    float: left;
+}
+
+}
+
+@media(max-width:368px){
+    .mb{
+        margin-bottom: 4px;
+    }
+}

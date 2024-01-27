@@ -1,0 +1,29 @@
+table tr:nth-child(even){
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+table tr td button {
+    width: 100%;
+}
+
+@media(max-width:540px){
+    table thead{
+        display: none;
+    }
+
+    table tr{
+        display: block;
+        gap: 0.5rem;
+    }
+
+    table td{
+        display: block;
+        text-align: right;
+    }
+
+    table td::before {
+        content: attr(data-title);
+        float: left;
+    }
+}

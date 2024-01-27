@@ -1,0 +1,8 @@
+table td button{
+    margin-bottom: 5px;
+}
+
+table tr:nth-child(even){
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
